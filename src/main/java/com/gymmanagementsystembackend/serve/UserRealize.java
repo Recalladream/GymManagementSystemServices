@@ -3,6 +3,7 @@ package com.gymmanagementsystembackend.serve;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.gymmanagementsystembackend.config.ProjectInterceptor;
 import com.gymmanagementsystembackend.dao.*;
 import com.gymmanagementsystembackend.domain.*;
 import com.gymmanagementsystembackend.exception.BusinessException;
@@ -10,7 +11,6 @@ import com.gymmanagementsystembackend.model.*;
 import com.gymmanagementsystembackend.serve.itf.UserInterface;
 import com.gymmanagementsystembackend.tool.Code;
 import com.gymmanagementsystembackend.tool.ServeTool;
-import com.gymmanagementsystembackend.tool.ThreadLocalManage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,8 +56,8 @@ public class UserRealize implements UserInterface {
             // if (!IdCardUtil.isIdCardNo(vipModel.getIdentityCard())){checkout=false;mes="身份证不符合规范!";}
 
             if (checkout==true){
-                ThreadLocalManage threadLocalManage=ThreadLocalManage.getInstance();
-                String userId=(String) threadLocalManage.getThreadLocalMap().get("identityId");
+                //ThreadLocalManage threadLocalManage=ThreadLocalManage.getInstance();
+                String userId= ProjectInterceptor.getDataFromThreadLocal();
 
                 LambdaQueryWrapper<UserTable> lqw=new LambdaQueryWrapper<>();
                 lqw.eq(UserTable::getUserId,userId);
@@ -160,8 +160,7 @@ public class UserRealize implements UserInterface {
     @Override
     public UserModel getUserInf(String vipId) {
         try {
-            ThreadLocalManage threadLocalManage=ThreadLocalManage.getInstance();
-            String userId=(String) threadLocalManage.getThreadLocalMap().get("identityId");
+            String userId=ProjectInterceptor.getDataFromThreadLocal();
 
             UserModel userModel=new UserModel();
 
@@ -228,9 +227,7 @@ public class UserRealize implements UserInterface {
     @Override
     public String openVip(VipModel vipModel) {
         try {
-            System.out.println(vipModel);
-            ThreadLocalManage threadLocalManage=ThreadLocalManage.getInstance();
-            String userId=(String) threadLocalManage.getThreadLocalMap().get("identityId");
+            String userId=ProjectInterceptor.getDataFromThreadLocal();
 
             String vipId=vipRealize.addVipUser(vipModel);
 
@@ -258,7 +255,10 @@ public class UserRealize implements UserInterface {
         try {
             String condition=signinModel.getCoachId()+"_"+signinModel.getCourseId()+"_"+signinModel.getClassTime()+"_"+signinModel.getPeriod();
             String dataKey=Code.sigNinCode_data_prefix+"_"+condition;
+            System.out.println(dataKey);
             String sigNinCode=serveTool.<String>getManagerRedisData(dataKey,String.class);
+            System.out.println(sigNinCode);
+            System.out.println(signinModel.getSignCode());
 
             if (sigNinCode!=null&&!"".equals(sigNinCode)){
                 if (signinModel.getSignCode()!=null&&!"".equals(signinModel.getSignCode())){

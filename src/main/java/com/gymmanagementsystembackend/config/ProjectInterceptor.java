@@ -1,30 +1,25 @@
 package com.gymmanagementsystembackend.config;
 
-import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.Claim;
 import com.gymmanagementsystembackend.model.RedisDataModel;
 import com.gymmanagementsystembackend.tool.Code;
 import com.gymmanagementsystembackend.tool.JwtToken;
 import com.gymmanagementsystembackend.tool.ServeTool;
-import com.gymmanagementsystembackend.tool.ThreadLocalManage;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Map;
 
 @Component
 public class ProjectInterceptor implements HandlerInterceptor {
+    private static final ThreadLocal<String> THREAD_LOCAL = new ThreadLocal<>();
+
     @Autowired
     private ServeTool serveTool;
     @Override
@@ -48,8 +43,7 @@ public class ProjectInterceptor implements HandlerInterceptor {
             Map<String,Claim> claimMap=JwtToken.verifyToken(token);
             String identityId=claimMap.get("identityId").toString();
 
-            ThreadLocalManage threadLocalManage = ThreadLocalManage.getInstance();
-            threadLocalManage.setThreadLocalMap("identityId",identityId);
+            THREAD_LOCAL.set(identityId);
 
             return true;
         }
@@ -67,5 +61,9 @@ public class ProjectInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 
+    }
+
+    public static String getDataFromThreadLocal() {
+        return THREAD_LOCAL.get();
     }
 }

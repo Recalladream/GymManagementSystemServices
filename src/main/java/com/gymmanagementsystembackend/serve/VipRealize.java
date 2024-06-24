@@ -141,7 +141,7 @@ public class VipRealize implements VipInterface {
             if ("男".equals(vipModel.getSex())||"女".equals(vipModel.getSex())){
             }else {checkout=false;mes="性别不符合规范!";}
             if (vipModel.getPhone().length()!=11){checkout=false;mes="手机号不符合规范！";}
-            if (!IdCardUtil.isIdCardNo(vipModel.getIdentityCard())){checkout=false;mes="身份证不符合规范!";}
+            //if (!IdCardUtil.isIdCardNo(vipModel.getIdentityCard())){checkout=false;mes="身份证不符合规范!";}
 
             if (checkout==true){
                 LambdaQueryWrapper<VipUserTable> lqw=new LambdaQueryWrapper<>();
@@ -387,7 +387,7 @@ public class VipRealize implements VipInterface {
             if ("男".equals(vipModel.getSex())||"女".equals(vipModel.getSex())){
             }else {checkout=false;mes="性别不符合规范!";}
             if (vipModel.getPhone().length()!=11){checkout=false;mes="手机号不符合规范！";}
-            if (!IdCardUtil.isIdCardNo(vipModel.getIdentityCard())){checkout=false;mes="身份证不符合规范!";}
+            //if (!IdCardUtil.isIdCardNo(vipModel.getIdentityCard())){checkout=false;mes="身份证不符合规范!";}
 
             if (checkout==true){
                 LambdaQueryWrapper<VipUserTable> lqw=new LambdaQueryWrapper<>();
