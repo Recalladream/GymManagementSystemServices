@@ -56,7 +56,6 @@ public class UserRealize implements UserInterface {
             // if (!IdCardUtil.isIdCardNo(vipModel.getIdentityCard())){checkout=false;mes="身份证不符合规范!";}
 
             if (checkout==true){
-                //ThreadLocalManage threadLocalManage=ThreadLocalManage.getInstance();
                 String userId= ProjectInterceptor.getDataFromThreadLocal();
 
                 LambdaQueryWrapper<UserTable> lqw=new LambdaQueryWrapper<>();

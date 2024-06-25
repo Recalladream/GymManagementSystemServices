@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.xml.transform.Result;
 
 @RestController
-@CrossOrigin("http://localhost:5173")
 @RequestMapping("/api/user")
 @Tag(name = "用户管理接口")
 public class UserController {

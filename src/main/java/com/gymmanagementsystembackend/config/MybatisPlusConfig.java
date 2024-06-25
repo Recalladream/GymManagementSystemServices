@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class MqConfig {
+public class MybatisPlusConfig {
         @Bean
         public MybatisPlusInterceptor mybatisPlusInterceptor(){
             MybatisPlusInterceptor mpInterceptor=new MybatisPlusInterceptor();

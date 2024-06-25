@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin("http://localhost:5173")
 @RequestMapping("/api/signin")
 @Tag(name = "签到管理接口")
 public class SigninController {

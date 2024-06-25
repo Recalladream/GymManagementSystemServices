@@ -19,8 +19,8 @@ public class MSGServiceImpl {
     private ObjectMapper objectMapper;
 
     public  boolean send(Map map, String phone) {
-        String id=System.getProperty("SEND_MSG_ID");
-        String secret=System.getProperty("SEND_MSG_SECRET");
+        String id=System.getenv("ALIYUN_USER_ID");
+        String secret=System.getenv("ALIYUN_USER_SECRET");
 
         if(StringUtils.isEmpty(phone)) return false;
 

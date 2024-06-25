@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin("http://localhost:5173")
 @RequestMapping("/api/backstage/homepage")
 @Tag(name = "后台首页管理接口")
 public class BackstageHomePageController {

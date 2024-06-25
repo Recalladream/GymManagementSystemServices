@@ -22,6 +22,7 @@ public class ProjectExceptionAdvice {
 
     @ExceptionHandler(Exception.class)
     public ResultModel doException(Exception ex){
+        ex.printStackTrace();
         return new ResultModel(Code.unknown_error,null,"未知错误...");
     }
 

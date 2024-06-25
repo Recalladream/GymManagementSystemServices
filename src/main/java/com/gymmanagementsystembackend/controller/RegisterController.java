@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin("http://localhost:5173")
 @RequestMapping("/api/register")
 @Tag(name = "注册管理接口")
 public class RegisterController {

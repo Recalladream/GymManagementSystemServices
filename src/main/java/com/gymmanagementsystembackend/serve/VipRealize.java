@@ -365,6 +365,7 @@ public class VipRealize implements VipInterface {
                 serveTool.updateRedisDataStatus(Code.subscribe_check_key,Code.subscribe_check_update_value);
                 serveTool.updateRedisDataStatus(Code.sigNin_check_key,Code.sigNin_check_update_value);
                 serveTool.updateRedisDataStatus(Code.sigNinNot_check_key,Code.sigNinNot_check_update_value);
+                serveTool.updateRedisDataStatus(Code.sigNinClass_check_key,Code.sigNinClass_check_update_value);
 
                 return;
             }
@@ -391,7 +392,7 @@ public class VipRealize implements VipInterface {
 
             if (checkout==true){
                 LambdaQueryWrapper<VipUserTable> lqw=new LambdaQueryWrapper<>();
-                lqw.ne(VipUserTable::getVipId, vipModel.getVipId())
+                lqw.ne(VipUserTable::getVipId,vipModel.getVipId())
                         .and(wrapper -> wrapper.eq(VipUserTable::getIdentityCard, vipModel.getIdentityCard()).or().eq(VipUserTable::getPhone, vipModel.getPhone()));
                 VipUserTable vipUserTable1=vipUserMapper.selectOne(lqw);
 
@@ -406,6 +407,9 @@ public class VipRealize implements VipInterface {
                     LambdaQueryWrapper<VipUserTable> lqwvip=new LambdaQueryWrapper<>();
                     lqwvip.eq(VipUserTable::getVipId, vipModel.getVipId());
                     vipUserMapper.update(vipUserTable,lqwvip);
+
+                    System.out.println(vipUserTable);
+                    System.out.println(vipModel);
 
                     LambdaQueryWrapper<UserTable> lqwUser=new LambdaQueryWrapper<>();
                     lqwUser.eq(UserTable::getVipId,vipModel.getVipId());
